@@ -63,43 +63,72 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Container(
-          child: ListView.builder(
-              itemCount: title.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: Colors.black),
-                      color: Colors.cyan,
-                      borderRadius: BorderRadius.circular(10)),
-                  margin: EdgeInsets.all(10),
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                            Container(
-                              child: Text(
-                                "${title[index]}",
-                                style: Theme.of(context).textTheme.headline3,
-                              ),
-                              padding: EdgeInsets.all(10),
-                            ),
-                            Container(
-                              child: Text(
-                                "${description[index]}",
-                                style: Theme.of(context).textTheme.headline6,
-                              ),
-                              padding: EdgeInsets.all(10),
-                            )
-                          ]))
-                    ],
+      body: Column(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(bottom: 20),
+            decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20))),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(bottom: 20, top: 20),
+                  child: Text(
+                    "TODO LIST",
+                    style: TextStyle(fontSize: 40, fontStyle: FontStyle.italic, color: Colors.black87, ),
                   ),
-                );
-              })),
+                )
+              ],
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+              child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: title.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 2, color: Colors.black),
+                          borderRadius: BorderRadius.circular(10)),
+                      margin: EdgeInsets.all(5),
+                      padding: EdgeInsets.all(5),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                Container(
+                                  child: Text(
+                                    "${title[index]}",
+                                    style:
+                                        Theme.of(context).textTheme.headline4,
+                                  ),
+                                  padding: EdgeInsets.all(5),
+                                ),
+                                Container(
+                                  child: Text(
+                                    "${description[index]}",
+                                    style:
+                                        Theme.of(context).textTheme.headline6,
+                                  ),
+                                  padding: EdgeInsets.all(5),
+                                )
+                              ]))
+                        ],
+                      ),
+                    );
+                  })),
+        ],
+      ),
+      
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
