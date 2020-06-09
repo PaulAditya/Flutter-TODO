@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'addTask.dart';
 
 void main() {
   runApp(MyApp());
@@ -63,17 +64,15 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Container(
-        color: Colors.blue[100],
+      body:
+          //Main Container
+          Container(
+        color: Colors.blue[900],
         child: Column(
           children: <Widget>[
+            //Title Container
             Container(
               margin: EdgeInsets.only(bottom: 2),
-              decoration: BoxDecoration(
-                  color: Colors.blue[900],
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(40),
-                      bottomRight: Radius.circular(40))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -91,66 +90,83 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
+
+            //All Task Container
             Expanded(
               child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.blue[100],
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40))),
                   margin: EdgeInsets.only(top: 2, left: 2, right: 2),
-                  child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: title.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Dismissible(
-                          key: Key(index.toString()),
-                          onDismissed: (right) {
-                            setState(() {
-                              title.removeAt(index);
-                              description.removeAt(index);
-                            });
-                            Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text("Deleted"),
-                            ));
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(width: 2, color: Colors.black),
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white),
-                            margin: EdgeInsets.all(5),
-                            padding: EdgeInsets.all(5),
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                    child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                      Container(
-                                        child: Text(
-                                          "${title[index]}",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline4,
-                                        ),
-                                        padding: EdgeInsets.all(5),
-                                      ),
-                                      Container(
-                                        child: Text(
-                                          "${description[index]}",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6,
-                                        ),
-                                        padding: EdgeInsets.all(5),
-                                      )
-                                    ]))
-                              ],
-                            ),
-                          ),
-                        );
-                      })),
+                  child: Container(
+                    margin: EdgeInsets.only(top: 40),
+                      child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemCount: title.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Dismissible(
+                              key: Key(index.toString()),
+                              onDismissed: (right) {
+                                setState(() {
+                                  title.removeAt(index);
+                                  description.removeAt(index);
+                                });
+                                Scaffold.of(context).showSnackBar(SnackBar(
+                                  content: Text("Deleted"),
+                                ));
+                              },
+
+                              //Single Task Container
+
+                              child: Container(
+                                margin: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        width: 2, color: Colors.black),
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.white),
+                                child: Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                        child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+
+                                          //Title
+                                          Container(
+                                            child: Text(
+                                              "${title[index]}",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline5,
+                                            ),
+                                            padding: EdgeInsets.all(5),
+                                            margin: EdgeInsets.all(2),
+                                          ),
+
+                                          //Description
+                                          Container(
+                                            child: Text(
+                                              "${description[index]}",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline6,
+                                            ),
+                                            padding: EdgeInsets.all(5),
+                                            margin: EdgeInsets.all(2),
+                                          )
+                                        ]))
+                                  ],
+                                ),
+                              ),
+                            );
+                          }))),
             )
           ],
         ),
@@ -183,85 +199,5 @@ class _MyHomePageState extends State<MyHomePage> {
       title;
       description;
     });
-  }
-}
-
-class AddTask extends StatelessWidget {
-  String title = "";
-  String description = "";
-  List newTask = List();
-
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Add Task"),
-        ),
-        body: Container(
-          color: Colors.blue[100],
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Container(
-                    color: Colors.blue[100],
-                    margin: EdgeInsets.all(10),
-                    child: Row(children: [
-                      Expanded(
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                color: Colors.blue[100]),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                                    labelText: 'Title',
-                                  ),
-                                  onChanged: (text) {
-                                    title = text;
-                                  },
-                                ),
-                                margin: EdgeInsets.all(10),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                color: Colors.blue[100]),
-                                child: TextField(
-                                  maxLines: 10,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    alignLabelWithHint: true,
-                                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                                    labelText: 'Description',
-                                  ),
-                                  onChanged: (text) {
-                                    description = text;
-                                  },
-                                ),
-                                margin: EdgeInsets.all(10),
-                              ),
-                              Container(
-                                child: RaisedButton(
-                                  onPressed: () {
-                                    newTask.add(title);
-                                    newTask.add(description);
-                                    Navigator.pop(context, newTask);
-                                  },
-                                  child: Text("ADD TASK"),
-                                ),
-                              )
-                            ]),
-                      )
-                    ]),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ));
   }
 }
